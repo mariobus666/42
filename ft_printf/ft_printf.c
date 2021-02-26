@@ -58,7 +58,10 @@ int		read_type(const char s, t_info *info, va_list ap)
 		count += print_char(info, ap);
 	if (s == 's')
 		count += print_s(info, ap);
-
+	if (s == 'p')
+		count += print_p(ap);
+	if (s == 'd')
+		count += print_d(info, ap);
 	return (count);
 }
 
@@ -104,7 +107,6 @@ int main()
 {
 	char c[] = "ciao";
 	
-	printf("%d\n", ft_printf("%-6.8s", c));
-	printf("%d\n", printf("%-6.8s", c));
-
+	printf("%d\n", ft_printf("%5.2p/n", c));
+	printf("%d\n", printf("%5.2p/n", c));
 }

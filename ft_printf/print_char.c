@@ -6,7 +6,7 @@
 /*   By: mbus <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 12:06:52 by mbus              #+#    #+#             */
-/*   Updated: 2021/02/25 16:54:46 by mbus             ###   ########.fr       */
+/*   Updated: 2021/02/26 12:16:27 by mbus             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int	print_s(t_info *info, va_list ap)
 		while (count++ < info->width)
 			write(1, &w, 1);
 	}
+	free(tmp);
 	return (count - 1);
 }

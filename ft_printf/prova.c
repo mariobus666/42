@@ -8,5 +8,12 @@ void prova(t_info *info)
 
 int main()
 {
-	printf("%5.2s", "ciao");
+	char a = 'a';
+
+	char *p = &a;
+	char *ptr = p;
+	//printf("%u\n", &a);
+	printf("%p\n", &a);
+	printf("%zu", &a);
 }
+
