@@ -26,7 +26,7 @@ void	read_flags(const char **s, t_info *info)
 void	read_precwidth(const char **s, va_list ap, t_info *info)
 {
 	if (**s == '*')
-	{
+	{	
 		info->width = va_arg(ap, int);
 		(*s)++;
 	}
@@ -62,6 +62,14 @@ int		read_type(const char s, t_info *info, va_list ap)
 		count += print_p(ap);
 	if (s == 'd')
 		count += print_d(info, ap);
+	if (s == 'i')
+		count += print_d(info, ap);
+	if (s == '%')
+		write(1, "%", 1);
+	if (s == 'x')
+		count += print_x(info, ap);
+	if (s == 'X')
+		count += print_upx(info, ap);
 	return (count);
 }
 
@@ -105,8 +113,7 @@ int	ft_printf(const char *s, ...)
 #include <stdio.h>
 int main()
 {
-	char c[] = "ciao";
 	
-	printf("%d\n", ft_printf("%5.2p/n", c));
-	printf("%d\n", printf("%5.2p/n", c));
+	printf("%d\n", ft_printf("%10.5d/n", -5));
+	printf("%d\n", printf("%10.5d/n", -5));
 }
