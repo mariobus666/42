@@ -6,7 +6,7 @@
 /*   By: mbus <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 12:06:52 by mbus              #+#    #+#             */
-/*   Updated: 2021/02/26 12:16:27 by mbus             ###   ########.fr       */
+/*   Updated: 2021/02/28 17:22:55 by mbus             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,17 @@ int	print_s(t_info *info, va_list ap)
 		else
 			while (count++ < info->width - len - 1)
 				write(1, &w, 1);
-		write(1, tmp, info->prec);
-		count += info->prec;
+		if (info->prec >= 0)
+		{
+				write(1, tmp, info->prec);
+				count++;
+		}
+		else
+		{
+			write(1, tmp, len);
+			count++;
+		}
+
 	}
 	if (info->minus == 1)
 	{
@@ -72,12 +81,12 @@ int	print_s(t_info *info, va_list ap)
 		}
 		else
 		{
-			write(1,tmp, len - 1);
-			count += len - 1;
+			write(1,tmp, len);
+			count += len;
 		}
 		while (count++ < info->width)
 			write(1, &w, 1);
 	}
-	free(tmp);
 	return (count - 1);
 }
+

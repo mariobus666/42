@@ -6,14 +6,13 @@
 /*   By: mbus <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:20:51 by mbus              #+#    #+#             */
-/*   Updated: 2021/02/27 14:30:00 by mbus             ###   ########.fr       */
+/*   Updated: 2021/02/28 18:35:21 by mbus             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
-static int		len(size_t nb)
+static int		len(size_t nb, char *base)
 {
 	int		lenght;
 
@@ -22,20 +21,20 @@ static int		len(size_t nb)
 		lenght++;
 	while (nb > 0)
 	{
-		nb = nb / 16;
+		nb = nb / ft_strlen(base);
 		lenght++;
 	}
 	return (lenght);
 }
 
-char			*ft_itoa_hex(size_t n, char *base)
+char			*ft_utoa(size_t n, char *base)
 {
 	char	*str;
 	size_t	nb;
 	int		i;
 
 	nb = n;
-	i = len(n);
+	i = len(n, base);
 	if (!(str = malloc(i + 1)))
 		return (NULL);
 	str[i--] = '\0';
@@ -46,51 +45,67 @@ char			*ft_itoa_hex(size_t n, char *base)
 	}
 	while (nb > 0)
 	{
-		str[i--] = base[nb % 16];
-		nb /= 16;
+		str[i--] = base[nb % ft_strlen(base)];
+		nb /= ft_strlen(base);
 	}
 	return (str);
 }
 
 int				print_x(t_info *info, va_list ap)
 {
-	size_t	to_conv;
+	size_t	tmp;
 	int		count;
-	char	*tmp;
+	char	*tmp2;
 	int		len;
 
 	count = 0;	
-	to_conv = (size_t)(va_arg(ap, unsigned int));
-	tmp = ft_itoa_hex(to_conv, "0123456789abcdef");
-	len = ft_strlen(tmp);
-
-	if(info->minus == 0)
-
-
-	while (*tmp)
+	tmp = (size_t)(va_arg(ap, unsigned int));
+	tmp2 = ft_utoa(tmp, "0123456789abcdef");
+	len = ft_strlen(tmp2);
+	if (tmp == 0 && info->prec == 0)
+		zero_noprec(info, tmp, &count);
+	else if (tmp == 0 && info->prec != 0)
+		zero_with_prec(info, tmp, &count);
+	else
 	{
-		write(1, tmp, 1);
-		count++;
-		tmp++;
+		count = neg_int(tmp, &tmp2, &len, info);
+		if(info->minus == 0)
+		{
+			num_nominus(info, &count, len, tmp);
+			putstr(tmp2, &count);
+		}
+		else
+			num_minus(info, &count, len, tmp2);
 	}
 	return (count);
 }
 
 int				print_upx(t_info *info, va_list ap)
 {
-	size_t	to_conv;
+
+	size_t	tmp;
 	int		count;
-	char	*tmp;
+	char	*tmp2;
+	int		len;
 
 	count = 0;	
-	to_conv = (size_t)(va_arg(ap, unsigned int));
-	tmp = ft_itoa_hex(to_conv, "0123456789ABCDEF");
-
-	while (*tmp)
+	tmp = (size_t)(va_arg(ap, unsigned int));
+	tmp2 = ft_utoa(tmp, "0123456789abcdef");
+	len = ft_strlen(tmp2);
+	if (tmp == 0 && info->prec == 0)
+		zero_noprec(info, tmp, &count);
+	else if (tmp == 0 && info->prec != 0)
+		zero_with_prec(info, tmp, &count);
+	else
 	{
-		write(1, tmp, 1);
-		count++;
-		tmp++;
+		count = neg_int(tmp, &tmp2, &len, info);
+		if(info->minus == 0)
+		{
+			num_nominus(info, &count, len, tmp);
+			putstr(tmp2, &count);
+		}
+		else
+			num_minus(info, &count, len, tmp2);
 	}
 	return (count);
 }

@@ -70,6 +70,8 @@ int		read_type(const char s, t_info *info, va_list ap)
 		count += print_x(info, ap);
 	if (s == 'X')
 		count += print_upx(info, ap);
+	if (s == 'u')
+		count += print_u(info, ap);
 	return (count);
 }
 
@@ -114,6 +116,6 @@ int	ft_printf(const char *s, ...)
 int main()
 {
 	
-	printf("%d\n", ft_printf("%10.5d/n", -5));
-	printf("%d\n", printf("%10.5d/n", -5));
+	printf("%d\n", ft_printf("%-3.*u/n", 0, 4294967295));
+	printf("%d\n", printf("%-3.*u/n", 0, 4294967295));
 }
