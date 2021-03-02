@@ -6,7 +6,7 @@
 /*   By: mbus <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:20:51 by mbus              #+#    #+#             */
-/*   Updated: 2021/02/28 18:35:21 by mbus             ###   ########.fr       */
+/*   Updated: 2021/03/02 18:22:44 by mbus             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int				print_x(t_info *info, va_list ap)
 	tmp2 = ft_utoa(tmp, "0123456789abcdef");
 	len = ft_strlen(tmp2);
 	if (tmp == 0 && info->prec == 0)
-		zero_noprec(info, tmp, &count);
+		zero_noprec(info, &count);
 	else if (tmp == 0 && info->prec != 0)
-		zero_with_prec(info, tmp, &count);
+		zero_with_prec(info, &count);
 	else
 	{
 		count = neg_int(tmp, &tmp2, &len, info);
@@ -90,12 +90,12 @@ int				print_upx(t_info *info, va_list ap)
 
 	count = 0;	
 	tmp = (size_t)(va_arg(ap, unsigned int));
-	tmp2 = ft_utoa(tmp, "0123456789abcdef");
+	tmp2 = ft_utoa(tmp, "0123456789ABCDEF");
 	len = ft_strlen(tmp2);
 	if (tmp == 0 && info->prec == 0)
-		zero_noprec(info, tmp, &count);
+		zero_noprec(info, &count);
 	else if (tmp == 0 && info->prec != 0)
-		zero_with_prec(info, tmp, &count);
+		zero_with_prec(info, &count);
 	else
 	{
 		count = neg_int(tmp, &tmp2, &len, info);

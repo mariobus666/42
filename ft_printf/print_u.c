@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-void	u_zero_with_prec(t_info *info, size_t tmp, int *count)
+void	u_zero_with_prec(t_info *info, int *count)
 {
 	if (info->prec == -1)
 		info->prec = 0;
@@ -26,14 +26,14 @@ void	u_zero_with_prec(t_info *info, size_t tmp, int *count)
 	}
 }
 
-void	u_zero_noprec(t_info *info, size_t tmp, int *count)
+void	u_zero_noprec(t_info *info, int *count)
 {
 	while ((*count)++ < info->width)
 		write(1, " ", 1);
 	(*count)--;
 }
 
-void	u_num_nominus(t_info *info, int *count, int len, size_t tmp)
+void	u_num_nominus(t_info *info, int *count, int len)
 {
 	if(info->prec > len)
 	{	
@@ -87,14 +87,14 @@ int	print_u(t_info *info, va_list ap)
 	tmp2 = ft_utoa(tmp, "0123456789");
 	len = ft_strlen(tmp2);
 	if (tmp == 0 && info->prec == 0)
-		u_zero_noprec(info, tmp, &count);
+		u_zero_noprec(info, &count);
 	else if (tmp == 0 && info->prec != 0)
-		u_zero_with_prec(info, tmp, &count);
+		u_zero_with_prec(info, &count);
 	else
 	{
 		if(info->minus == 0)
 		{
-			u_num_nominus(info, &count, len, tmp);
+			u_num_nominus(info, &count, len);
 			putstr(tmp2, &count);
 		}
 		else

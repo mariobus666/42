@@ -44,6 +44,8 @@ void	read_precwidth(const char **s, va_list ap, t_info *info)
 		}
 		else if (ft_isdigit(**s))
 			info->prec = ft_atoi(*s);
+		else
+			info->prec = 0;
 		while (ft_isdigit(**s))
 			(*s)++;
 	}
@@ -56,22 +58,24 @@ int		read_type(const char s, t_info *info, va_list ap)
 	count = 0;
 	if (s == 'c')
 		count += print_char(info, ap);
-	if (s == 's')
+	else if (s == 's')
 		count += print_s(info, ap);
-	if (s == 'p')
+	else if (s == 'p')
 		count += print_p(ap);
-	if (s == 'd')
+	else if (s == 'd')
 		count += print_d(info, ap);
-	if (s == 'i')
+	else if (s == 'i')
 		count += print_d(info, ap);
-	if (s == '%')
-		write(1, "%", 1);
-	if (s == 'x')
+	else if (s == '%')
+		count += print_perc(info);
+	else if (s == 'x')
 		count += print_x(info, ap);
-	if (s == 'X')
+	else if (s == 'X')
 		count += print_upx(info, ap);
-	if (s == 'u')
+	else if (s == 'u')
 		count += print_u(info, ap);
+	else
+		return (-1);
 	return (count);
 }
 
@@ -89,6 +93,8 @@ void	read_str(const char **s, va_list ap, int *res)
 			read_flags(s, info);
 			read_precwidth(s, ap, info);
 			*res += read_type(**s, info, ap);
+			if (*res == -1)
+				break ;
 			(*s)++;
 		}
 		else
@@ -110,12 +116,4 @@ int	ft_printf(const char *s, ...)
 	read_str(&s, ap, &res);
 	va_end(ap);
 	return (res);
-}
-
-#include <stdio.h>
-int main()
-{
-	
-	printf("%d\n", ft_printf("%-3.*u/n", 0, 4294967295));
-	printf("%d\n", printf("%-3.*u/n", 0, 4294967295));
 }
