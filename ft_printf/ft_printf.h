@@ -24,6 +24,7 @@ typedef	struct	s_info
 	int			prec;
 	int			zero;
 	int			minus;
+	int			negnum;
 }				t_info;
 
 int				print_char(t_info *info, va_list ap);
@@ -37,7 +38,7 @@ int				print_perc(t_info *info);
 void			zero_with_prec(t_info *info, int *count);
 void			zero_noprec(t_info *info, int *count);
 int				neg_int(int tmp, char **tmp2, int *len, t_info *info);
-void			num_nominus(t_info *info, int *count, int len, int tmp);
+void			num_nominus(t_info *info, int *count, int len, char **tmp2);
 void			num_minus(t_info *info, int *count, int len, char *tmp2);
 char			*ft_utoa(size_t n, char *base);
 void			putstr(char *tmp2, int *count);

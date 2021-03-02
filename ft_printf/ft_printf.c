@@ -6,6 +6,7 @@ void	init_info(t_info *info)
 	info->prec = -1;
 	info->zero = 0;
 	info->minus = 0;
+	info->negnum = 0;
 }
 
 void	read_flags(const char **s, t_info *info)
@@ -27,7 +28,12 @@ void	read_precwidth(const char **s, va_list ap, t_info *info)
 {
 	if (**s == '*')
 	{	
-		info->width = va_arg(ap, int);
+		info->width = va_arg(ap, int)
+		if (info->width < 0)
+		{
+			info->minus = 1;
+			info->zero = 0;
+		}
 		(*s)++;
 	}
 	if (ft_isdigit(**s))
