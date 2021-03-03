@@ -28,7 +28,7 @@ void	read_precwidth(const char **s, va_list ap, t_info *info)
 {
 	if (**s == '*')
 	{	
-		info->width = va_arg(ap, int)
+		info->width = va_arg(ap, int);
 		if (info->width < 0)
 		{
 			info->minus = 1;

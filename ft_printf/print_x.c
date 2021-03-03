@@ -71,7 +71,7 @@ int				print_x(t_info *info, va_list ap)
 		count = neg_int(tmp, &tmp2, &len, info);
 		if(info->minus == 0)
 		{
-			num_nominus(info, &count, len, tmp);
+			num_nominus(info, &count, len, &tmp2);
 			putstr(tmp2, &count);
 		}
 		else
@@ -101,7 +101,7 @@ int				print_upx(t_info *info, va_list ap)
 		count = neg_int(tmp, &tmp2, &len, info);
 		if(info->minus == 0)
 		{
-			num_nominus(info, &count, len, tmp);
+			num_nominus(info, &count, len, &tmp2);
 			putstr(tmp2, &count);
 		}
 		else
