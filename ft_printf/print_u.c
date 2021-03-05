@@ -1,14 +1,17 @@
 #include "ft_printf.h"
 
 void	u_zero_with_prec(t_info *info, int *count)
-{
+{	
+	char w;
+
+	w = (info->zero == 1 && info->prec == - 1) ? '0' : ' ';
 	if (info->prec == -1)
-		info->prec = 0;
+		info->prec = 1;
 	if(info->minus == 0)
 	{
 		while ((*count)++ < info->width - info->prec)
-			write(1, " ", 1);
-		while (info->prec-- >= 0)
+			write(1, &w, 1);
+		while (info->prec-- > 0)
 		{
 				write(1, "0", 1);
 				(*count)++;
@@ -17,11 +20,11 @@ void	u_zero_with_prec(t_info *info, int *count)
 	}
 	else 
 	{
-		while ((*count)++ <= info->prec)
+		while ((*count)++ < info->prec)
 			write(1, "0", 1);
 		(*count)--;
 		while ((*count)++ < info->width)
-			write(1, " ", 1);
+			write(1, &w, 1);
 		(*count)--;
 	}
 }
@@ -35,10 +38,13 @@ void	u_zero_noprec(t_info *info, int *count)
 
 void	u_num_nominus(t_info *info, int *count, int len)
 {
+	char w;
+
+	w = (info->zero == 1 && info->prec == - 1) ? '0' : ' ';
 	if(info->prec > len)
 	{	
 		while ((*count)++ < info->width - info->prec)
-			write(1, " ", 1);
+			write(1, &w, 1);
 		(*count)--;
 		while (info->prec > len++)
 		{
@@ -49,7 +55,7 @@ void	u_num_nominus(t_info *info, int *count, int len)
 	else 
 		while (info->width > len++)
 		{
-			write(1, " ", 1);
+			write(1, &w, 1);
 			(*count)++;
 		}
 }

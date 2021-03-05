@@ -48,7 +48,7 @@ int	neg_int(int tmp, char **tmp2, int *len, t_info *info)
 		{
 			write(1, "-", 1);
 			(*tmp2)++;
-			(*len)--;
+	//		(*len)--;
 			return (1);
 		}
 	}
@@ -61,29 +61,29 @@ void	num_nominus(t_info *info, int *count, int len, char **tmp2)
 	
 	w = (info->zero == 1 && info->prec == -1) ? '0' : ' ';
 	if(info->prec > len)
-	{	
+	{
+		if (info->negnum == 1)
+			info->width--;
 		while ((*count)++ < info->width - info->prec)
 			write(1, &w, 1);
 		(*count)--;
 		//fare un'atra funzione per negum == 1
 		if (info->negnum == 1)
-		{
-			write(1, "-", 1);
-			(*tmp2)++;
-			(*count)++;
-		}
+			ft_negnum(info, count, &len, tmp2);	
 		while (info->prec > len++)
 		{
 			write(1, "0", 1);
 			(*count)++;
 		}
 	}
-	else 
-		while (info->width > len++)
+	else if(info->prec < len && info->width > len) 
+		while (info->width  > len++)
 		{
 			write(1, &w, 1);
 			(*count)++;
 		}
+//	else
+//		num_nominus_extra(info, count, &len, tmp2);
 }
 
 void	num_minus(t_info *info, int *count, int len, char *tmp2)
@@ -93,6 +93,8 @@ void	num_minus(t_info *info, int *count, int len, char *tmp2)
 	w = (info->zero == 1 && info->prec == -1) ? '0' : ' ';
 	if(info->prec > len)
 	{
+		if (info->negnum == 1)
+			len--;
 		while (info->prec > len++)
 		{
 			write(1, "0", 1);

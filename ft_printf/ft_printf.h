@@ -6,7 +6,7 @@
 /*   By: mbus <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 17:19:21 by mbus              #+#    #+#             */
-/*   Updated: 2021/03/02 18:58:11 by mbus             ###   ########.fr       */
+/*   Updated: 2021/03/04 18:45:25 by mbus             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ void			num_nominus(t_info *info, int *count, int len, char **tmp2);
 void			num_minus(t_info *info, int *count, int len, char *tmp2);
 char			*ft_utoa(size_t n, char *base);
 void			putstr(char *tmp2, int *count);
+void			ft_negnum(t_info *info, int *count, int *len, char **tmp2);
 #endif

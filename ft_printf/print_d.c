@@ -38,3 +38,30 @@ int	print_d(t_info *info, va_list ap)
 	}
 	return (count);
 }
+void	ft_negnum(t_info *info, int *count, int *len, char **tmp2)
+{
+	write(1, "-", 1);
+	(*tmp2)++;
+	(*count)++;
+	if (info->width == 0)
+	{
+		while(info->prec + 1 > (*len)++)
+		{
+			write(1, "0", 1);
+			(*count)++;
+		}
+	}
+	else;
+	{
+		while(info->prec + 1> (*len)++)
+		{
+			write(1, "0", 1);
+			(*count)++;
+		}
+	}
+}
+
+//void	num_nominus_extra(t_info *info, int *count, int *len, char **tmp2)
+//{
+	
+//}

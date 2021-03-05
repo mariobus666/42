@@ -123,3 +123,11 @@ int	ft_printf(const char *s, ...)
 	va_end(ap);
 	return (res);
 }
+
+/*#include <stdio.h>
+
+int main()
+{
+	printf("%d\n", printf("%.3u\n", 0));
+	ft_printf("%d\n", ft_printf("%.3u\n", 0));
+}*/
