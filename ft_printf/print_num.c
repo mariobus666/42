@@ -6,7 +6,7 @@
 /*   By: flwang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 16:25:18 by flwang            #+#    #+#             */
-/*   Updated: 2021/03/06 16:28:57 by flwang           ###   ########.fr       */
+/*   Updated: 2021/03/06 19:21:03 by flwang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	num_nominus(t_info *info, int *count, int len, char **tmp2)
 	char	w;
 
 	w = (info->zero == 1 && info->prec == -1) ? '0' : ' ';
-	if (info->prec > len)
+	if (info->prec >= len)
 	{
 		if (info->negnum == 1)
 			info->width--;
@@ -96,7 +96,7 @@ void	num_nominus(t_info *info, int *count, int len, char **tmp2)
 
 void	num_minus(t_info *info, int *count, int len, char *tmp2)
 {
-	if (info->prec > len)
+	if (info->prec >= len)
 	{
 		if (info->negnum == 1)
 			len--;

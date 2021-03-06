@@ -6,11 +6,12 @@
 /*   By: mbus <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 12:06:52 by mbus              #+#    #+#             */
-/*   Updated: 2021/03/06 16:21:22 by flwang           ###   ########.fr       */
+/*   Updated: 2021/03/06 20:25:21 by flwang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft/libft.h"
 
 int		print_char(t_info *info, va_list ap)
 {
@@ -110,7 +111,7 @@ int		print_s(t_info *info, va_list ap)
 
 	count = 0;
 	tmp = va_arg(ap, char *);
-	tmp = str_null(tmp);
+	tmp = ft_strdup(str_null(tmp));;
 	len = ft_strlen(tmp);
 	if (info->prec > len)
 		info->prec = len;
@@ -120,5 +121,6 @@ int		print_s(t_info *info, va_list ap)
 		w = '0';
 	count += str_nominus(info, len, w, tmp);
 	count += str_minus(info, len, w, tmp);
+	free(tmp);
 	return (count - 1);
 }

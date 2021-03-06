@@ -6,39 +6,34 @@
 /*   By: flwang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 16:05:32 by flwang            #+#    #+#             */
-/*   Updated: 2021/03/06 16:12:58 by flwang           ###   ########.fr       */
+/*   Updated: 2021/03/06 20:19:35 by flwang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft/libft.h"
 
-void	read_flags(const char **s, t_info *info)
-{
-	if (**s == '0')
-	{
-		info->zero = 1;
-		(*s)++;
-	}
-	if (**s == '-')
-	{
-		info->minus = 1;
-		info->zero = 0;
-		(*s)++;
-	}
-}
-
-void	read_precwidth(const char **s, va_list ap, t_info *info)
+int		read_width(const char **s, va_list ap, t_info *info)
 {
 	if (**s == '*')
 	{
 		info->width = va_arg(ap, int);
 		width_neg_star(info);
 		(*s)++;
+		return (1);
 	}
 	if (ft_isdigit(**s))
+	{
 		info->width = ft_atoi(*s);
-	while (ft_isdigit(**s))
-		(*s)++;
+		while (ft_isdigit(**s))
+			(*s)++;
+		return (1);
+	}
+	return (0);
+}
+
+int		read_prec(const char **s, va_list ap, t_info *info)
+{
 	if (**s == '.')
 	{
 		(*s)++;
@@ -53,7 +48,9 @@ void	read_precwidth(const char **s, va_list ap, t_info *info)
 			info->prec = 0;
 		while (ft_isdigit(**s))
 			(*s)++;
+		return (1);
 	}
+	return (0);
 }
 
 int		read_type(const char s, t_info *info, va_list ap)
@@ -95,8 +92,8 @@ void	read_str(const char **s, va_list ap, int *res)
 		{
 			(*s)++;
 			init_info(info);
-			read_flags(s, info);
-			read_precwidth(s, ap, info);
+			while (read_flags(s, info) || read_width(s, ap, info) || read_prec(s, ap, info))
+				;
 			*res += read_type(**s, info, ap);
 			if (*res == -1)
 				break ;
@@ -109,6 +106,7 @@ void	read_str(const char **s, va_list ap, int *res)
 			(*res)++;
 		}
 	}
+	free(info);
 }
 
 int		ft_printf(const char *s, ...)

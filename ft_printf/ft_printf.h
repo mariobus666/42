@@ -6,7 +6,7 @@
 /*   By: mbus <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 17:19:21 by mbus              #+#    #+#             */
-/*   Updated: 2021/03/06 16:05:22 by flwang           ###   ########.fr       */
+/*   Updated: 2021/03/06 20:14:03 by flwang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef	struct	s_info
 	int			negnum;
 }				t_info;
 
+int				ft_printf(const char *s, ...);
 int				print_char(t_info *info, va_list ap);
 int				print_s(t_info *info, va_list ap);
 int				print_p(t_info *info, va_list ap);
@@ -46,4 +47,6 @@ int				len(size_t nb, char *base);
 void			init_info(t_info *info);
 void			width_neg_star(t_info *info);
 void			prec_star(t_info *info, va_list ap);
+int				ft_skip(char c, char *flags);
+int				read_flags(const char **s, t_info *info);
 #endif

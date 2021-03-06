@@ -6,7 +6,7 @@
 /*   By: mbus <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:20:51 by mbus              #+#    #+#             */
-/*   Updated: 2021/03/06 16:28:26 by flwang           ###   ########.fr       */
+/*   Updated: 2021/03/06 18:48:38 by flwang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int		print_x(t_info *info, va_list ap)
 		zero_with_prec(info, &count);
 	else
 	{
-		count = neg_int(tmp, &tmp2, &len, info);
 		if (info->minus == 0)
 		{
 			num_nominus(info, &count, len, &tmp2);
@@ -97,7 +96,6 @@ int		print_upx(t_info *info, va_list ap)
 		zero_with_prec(info, &count);
 	else
 	{
-		count = neg_int(tmp, &tmp2, &len, info);
 		if (info->minus == 0)
 		{
 			num_nominus(info, &count, len, &tmp2);

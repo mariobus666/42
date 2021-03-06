@@ -6,7 +6,7 @@
 /*   By: mbus <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 12:16:34 by mbus              #+#    #+#             */
-/*   Updated: 2021/03/06 16:19:05 by flwang           ###   ########.fr       */
+/*   Updated: 2021/03/06 20:05:28 by flwang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,53 @@ static char	*size_to_hex(size_t to_conv, char *base)
 	return (tmp);
 }
 
-static int	null_p(t_info *info)
+static int null_p_nominus(t_info *info)
 {
 	int	count;
 
 	if (info->prec == 0)
 	{
 		count = 2;
+		write(1, "0x", 2);
 		while (info->width > count++)
 			write(1, " ", 1);
-		write(1, "0x", 2);
+
 	}
 	else
 	{
 		count = 3;
+		write(1, "0x0", 3);
 		while (info->width > count++)
 			write(1, " ", 1);
-		write(1, "0x0", 3);
 	}
 	count--;
+	return (count);
+}
+
+static int	null_p(t_info *info)
+{
+	int	count;
+
+	if (info->minus == 0)
+	{
+		if (info->prec == 0)
+		{
+			count = 2;
+			while (info->width > count++)
+				write(1, " ", 1);
+			write(1, "0x", 2);
+		}
+		else
+		{
+			count = 3;
+			while (info->width > count++)
+				write(1, " ", 1);
+			write(1, "0x0", 3);
+		}
+		count--;
+	}
+	else
+		count = null_p_nominus(info);	
 	return (count);
 }
 
