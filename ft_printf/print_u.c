@@ -1,24 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_u.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: flwang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/06 16:29:05 by flwang            #+#    #+#             */
+/*   Updated: 2021/03/06 16:29:07 by flwang           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	u_zero_with_prec(t_info *info, int *count)
-{	
+{
 	char w;
 
-	w = (info->zero == 1 && info->prec == - 1) ? '0' : ' ';
+	w = (info->zero == 1 && info->prec == -1) ? '0' : ' ';
 	if (info->prec == -1)
 		info->prec = 1;
-	if(info->minus == 0)
+	if (info->minus == 0)
 	{
 		while ((*count)++ < info->width - info->prec)
 			write(1, &w, 1);
 		while (info->prec-- > 0)
 		{
-				write(1, "0", 1);
-				(*count)++;
+			write(1, "0", 1);
+			(*count)++;
 		}
 		(*count)--;
 	}
-	else 
+	else
 	{
 		while ((*count)++ < info->prec)
 			write(1, "0", 1);
@@ -40,9 +52,9 @@ void	u_num_nominus(t_info *info, int *count, int len)
 {
 	char w;
 
-	w = (info->zero == 1 && info->prec == - 1) ? '0' : ' ';
-	if(info->prec > len)
-	{	
+	w = (info->zero == 1 && info->prec == -1) ? '0' : ' ';
+	if (info->prec > len)
+	{
 		while ((*count)++ < info->width - info->prec)
 			write(1, &w, 1);
 		(*count)--;
@@ -52,7 +64,7 @@ void	u_num_nominus(t_info *info, int *count, int len)
 			(*count)++;
 		}
 	}
-	else 
+	else
 		while (info->width > len++)
 		{
 			write(1, &w, 1);
@@ -62,7 +74,7 @@ void	u_num_nominus(t_info *info, int *count, int len)
 
 void	u_num_minus(t_info *info, int *count, int len, char *tmp2)
 {
-	if(info->prec > len)
+	if (info->prec > len)
 	{
 		while (info->prec > len++)
 		{
@@ -81,12 +93,12 @@ void	u_num_minus(t_info *info, int *count, int len, char *tmp2)
 	(*count)--;
 }
 
-int	print_u(t_info *info, va_list ap)
+int		print_u(t_info *info, va_list ap)
 {
-	int count;
-	size_t tmp;
-	char *tmp2;
-	int len;
+	int		count;
+	size_t	tmp;
+	char	*tmp2;
+	int		len;
 
 	count = 0;
 	tmp = (size_t)va_arg(ap, unsigned int);
@@ -98,7 +110,7 @@ int	print_u(t_info *info, va_list ap)
 		u_zero_with_prec(info, &count);
 	else
 	{
-		if(info->minus == 0)
+		if (info->minus == 0)
 		{
 			u_num_nominus(info, &count, len);
 			putstr(tmp2, &count);

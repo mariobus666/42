@@ -6,13 +6,13 @@
 /*   By: mbus <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 12:06:52 by mbus              #+#    #+#             */
-/*   Updated: 2021/03/02 19:03:48 by mbus             ###   ########.fr       */
+/*   Updated: 2021/03/06 16:21:22 by flwang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int print_char(t_info *info, va_list ap)
+int		print_char(t_info *info, va_list ap)
 {
 	char	w;
 	char	c;
@@ -35,7 +35,7 @@ int print_char(t_info *info, va_list ap)
 	return (count);
 }
 
-char  *str_null(char *tmp)
+char	*str_null(char *tmp)
 {
 	if (tmp == 0)
 	{
@@ -51,7 +51,7 @@ char  *str_null(char *tmp)
 	return (tmp);
 }
 
-int	str_nominus(t_info *info, int len, char w, char *tmp)
+int		str_nominus(t_info *info, int len, char w, char *tmp)
 {
 	int	count;
 
@@ -66,8 +66,8 @@ int	str_nominus(t_info *info, int len, char w, char *tmp)
 				write(1, &w, 1);
 		if (info->prec >= 0)
 		{
-				write(1, tmp, info->prec);
-				count += info->prec;
+			write(1, tmp, info->prec);
+			count += info->prec;
 		}
 		else
 		{
@@ -78,7 +78,7 @@ int	str_nominus(t_info *info, int len, char w, char *tmp)
 	return (count);
 }
 
-int str_minus(t_info *info, int len, char w, char *tmp)
+int		str_minus(t_info *info, int len, char w, char *tmp)
 {
 	int count;
 
@@ -92,7 +92,7 @@ int str_minus(t_info *info, int len, char w, char *tmp)
 		}
 		else
 		{
-			write(1,tmp, len);
+			write(1, tmp, len);
 			count += len;
 		}
 		while (count++ < info->width)
@@ -101,8 +101,7 @@ int str_minus(t_info *info, int len, char w, char *tmp)
 	return (count);
 }
 
-
-int	print_s(t_info *info, va_list ap)
+int		print_s(t_info *info, va_list ap)
 {
 	char	*tmp;
 	char	w;
@@ -113,14 +112,13 @@ int	print_s(t_info *info, va_list ap)
 	tmp = va_arg(ap, char *);
 	tmp = str_null(tmp);
 	len = ft_strlen(tmp);
-	if (info -> prec > len)
+	if (info->prec > len)
 		info->prec = len;
 	if (info->zero == 0)
 		w = ' ';
 	else
 		w = '0';
-	count += str_nominus(info,len, w, tmp);
-	count += str_minus(info,len, w, tmp);
+	count += str_nominus(info, len, w, tmp);
+	count += str_minus(info, len, w, tmp);
 	return (count - 1);
 }
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_d.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: flwang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/06 16:16:19 by flwang            #+#    #+#             */
+/*   Updated: 2021/03/06 16:16:20 by flwang           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	putstr(char *tmp2, int *count)
@@ -10,12 +22,12 @@ void	putstr(char *tmp2, int *count)
 	}
 }
 
-int	print_d(t_info *info, va_list ap)
+int		print_d(t_info *info, va_list ap)
 {
-	int 			count;
-	int 			tmp;
-	char 			*tmp2;
-	int 			len;
+	int		count;
+	int		tmp;
+	char	*tmp2;
+	int		len;
 
 	count = 0;
 	tmp = va_arg(ap, int);
@@ -28,7 +40,7 @@ int	print_d(t_info *info, va_list ap)
 	else
 	{
 		count = neg_int(tmp, &tmp2, &len, info);
-		if(info->minus == 0)
+		if (info->minus == 0)
 		{
 			num_nominus(info, &count, len, &tmp2);
 			putstr(tmp2, &count);
@@ -38,6 +50,7 @@ int	print_d(t_info *info, va_list ap)
 	}
 	return (count);
 }
+
 void	ft_negnum(t_info *info, int *count, int *len, char **tmp2)
 {
 	write(1, "-", 1);
@@ -45,23 +58,18 @@ void	ft_negnum(t_info *info, int *count, int *len, char **tmp2)
 	(*count)++;
 	if (info->width == 0)
 	{
-		while(info->prec + 1 > (*len)++)
+		while (info->prec + 1 > (*len)++)
 		{
 			write(1, "0", 1);
 			(*count)++;
 		}
 	}
-	else;
+	else
 	{
-		while(info->prec + 1> (*len)++)
+		while (info->prec + 1 > (*len)++)
 		{
 			write(1, "0", 1);
 			(*count)++;
 		}
 	}
 }
-
-//void	num_nominus_extra(t_info *info, int *count, int *len, char **tmp2)
-//{
-	
-//}

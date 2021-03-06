@@ -1,24 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_num.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: flwang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/06 16:25:18 by flwang            #+#    #+#             */
+/*   Updated: 2021/03/06 16:28:57 by flwang           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	zero_with_prec(t_info *info, int *count)
 {
 	char	w;
-	
+
 	w = (info->zero == 1 && info->prec == -1) ? '0' : ' ';
 	if (info->prec == -1)
 		info->prec = 1;
-	if(info->minus == 0)
+	if (info->minus == 0)
 	{
 		while ((*count)++ < info->width - info->prec)
 			write(1, &w, 1);
 		while (info->prec-- > 0)
 		{
-				write(1, "0", 1);
-				(*count)++;
+			write(1, "0", 1);
+			(*count)++;
 		}
 		(*count)--;
 	}
-	else 
+	else
 	{
 		while ((*count)++ < info->prec)
 			write(1, "0", 1);
@@ -32,14 +44,14 @@ void	zero_with_prec(t_info *info, int *count)
 void	zero_noprec(t_info *info, int *count)
 {
 	char	w;
-	
+
 	w = (info->zero == 1 && info->prec == -1) ? '0' : ' ';
 	while ((*count)++ < info->width)
 		write(1, &w, 1);
 	(*count)--;
 }
 
-int	neg_int(int tmp, char **tmp2, int *len, t_info *info)
+int		neg_int(int tmp, char **tmp2, int *len, t_info *info)
 {
 	if (tmp < 0)
 	{
@@ -48,7 +60,6 @@ int	neg_int(int tmp, char **tmp2, int *len, t_info *info)
 		{
 			write(1, "-", 1);
 			(*tmp2)++;
-	//		(*len)--;
 			return (1);
 		}
 	}
@@ -58,40 +69,34 @@ int	neg_int(int tmp, char **tmp2, int *len, t_info *info)
 void	num_nominus(t_info *info, int *count, int len, char **tmp2)
 {
 	char	w;
-	
+
 	w = (info->zero == 1 && info->prec == -1) ? '0' : ' ';
-	if(info->prec > len)
+	if (info->prec > len)
 	{
 		if (info->negnum == 1)
 			info->width--;
 		while ((*count)++ < info->width - info->prec)
 			write(1, &w, 1);
 		(*count)--;
-		//fare un'atra funzione per negum == 1
 		if (info->negnum == 1)
-			ft_negnum(info, count, &len, tmp2);	
+			ft_negnum(info, count, &len, tmp2);
 		while (info->prec > len++)
 		{
 			write(1, "0", 1);
 			(*count)++;
 		}
 	}
-	else if(info->prec < len && info->width > len) 
-		while (info->width  > len++)
+	else
+		while (info->width > len++)
 		{
 			write(1, &w, 1);
 			(*count)++;
 		}
-//	else
-//		num_nominus_extra(info, count, &len, tmp2);
 }
 
 void	num_minus(t_info *info, int *count, int len, char *tmp2)
 {
-	char	w;
-	
-	w = (info->zero == 1 && info->prec == -1) ? '0' : ' ';
-	if(info->prec > len)
+	if (info->prec > len)
 	{
 		if (info->negnum == 1)
 			len--;
@@ -108,6 +113,6 @@ void	num_minus(t_info *info, int *count, int len, char *tmp2)
 		tmp2++;
 	}
 	while (info->width > (*count)++)
-		write(1, &w, 1);
+		write(1, " ", 1);
 	(*count)--;
 }

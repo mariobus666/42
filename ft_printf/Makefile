@@ -5,7 +5,7 @@ cc = gcc
 AR = ar rc
 RM = rm -f
 
-SRCS = ft_printf.c print_char.c print_d.c print_num.c print_p.c print_u.c print_x.c print_perc.c
+SRCS = ft_printf.c print_char.c print_d.c print_num.c print_p.c print_u.c print_x.c print_perc.c flag_utils.c
 
 OBJS = ${SRCS:.c=.o}
 

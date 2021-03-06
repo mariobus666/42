@@ -1,13 +1,16 @@
-#include "ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: flwang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/06 16:05:32 by flwang            #+#    #+#             */
+/*   Updated: 2021/03/06 16:12:58 by flwang           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	init_info(t_info *info)
-{
-	info->width = 0;
-	info->prec = -1;
-	info->zero = 0;
-	info->minus = 0;
-	info->negnum = 0;
-}
+#include "ft_printf.h"
 
 void	read_flags(const char **s, t_info *info)
 {
@@ -27,13 +30,9 @@ void	read_flags(const char **s, t_info *info)
 void	read_precwidth(const char **s, va_list ap, t_info *info)
 {
 	if (**s == '*')
-	{	
+	{
 		info->width = va_arg(ap, int);
-		if (info->width < 0)
-		{
-			info->minus = 1;
-			info->zero = 0;
-		}
+		width_neg_star(info);
 		(*s)++;
 	}
 	if (ft_isdigit(**s))
@@ -45,7 +44,7 @@ void	read_precwidth(const char **s, va_list ap, t_info *info)
 		(*s)++;
 		if (**s == '*')
 		{
-			info->prec = va_arg(ap, int);
+			prec_star(info, ap);
 			(*s)++;
 		}
 		else if (ft_isdigit(**s))
@@ -67,7 +66,7 @@ int		read_type(const char s, t_info *info, va_list ap)
 	else if (s == 's')
 		count += print_s(info, ap);
 	else if (s == 'p')
-		count += print_p(ap);
+		count += print_p(info, ap);
 	else if (s == 'd')
 		count += print_d(info, ap);
 	else if (s == 'i')
@@ -112,7 +111,7 @@ void	read_str(const char **s, va_list ap, int *res)
 	}
 }
 
-int	ft_printf(const char *s, ...)
+int		ft_printf(const char *s, ...)
 {
 	int		res;
 	va_list	ap;
@@ -123,11 +122,3 @@ int	ft_printf(const char *s, ...)
 	va_end(ap);
 	return (res);
 }
-
-/*#include <stdio.h>
-
-int main()
-{
-	printf("%d\n", printf("%.3u\n", 0));
-	ft_printf("%d\n", ft_printf("%.3u\n", 0));
-}*/

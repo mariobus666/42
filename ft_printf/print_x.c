@@ -6,15 +6,15 @@
 /*   By: mbus <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:20:51 by mbus              #+#    #+#             */
-/*   Updated: 2021/03/02 18:22:44 by mbus             ###   ########.fr       */
+/*   Updated: 2021/03/06 16:28:26 by flwang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int		len(size_t nb, char *base)
+int		len(size_t nb, char *base)
 {
-	int		lenght;
+	int	lenght;
 
 	lenght = 0;
 	if (nb == 0)
@@ -27,7 +27,7 @@ static int		len(size_t nb, char *base)
 	return (lenght);
 }
 
-char			*ft_utoa(size_t n, char *base)
+char	*ft_utoa(size_t n, char *base)
 {
 	char	*str;
 	size_t	nb;
@@ -51,14 +51,14 @@ char			*ft_utoa(size_t n, char *base)
 	return (str);
 }
 
-int				print_x(t_info *info, va_list ap)
+int		print_x(t_info *info, va_list ap)
 {
 	size_t	tmp;
 	int		count;
 	char	*tmp2;
 	int		len;
 
-	count = 0;	
+	count = 0;
 	tmp = (size_t)(va_arg(ap, unsigned int));
 	tmp2 = ft_utoa(tmp, "0123456789abcdef");
 	len = ft_strlen(tmp2);
@@ -69,7 +69,7 @@ int				print_x(t_info *info, va_list ap)
 	else
 	{
 		count = neg_int(tmp, &tmp2, &len, info);
-		if(info->minus == 0)
+		if (info->minus == 0)
 		{
 			num_nominus(info, &count, len, &tmp2);
 			putstr(tmp2, &count);
@@ -80,15 +80,14 @@ int				print_x(t_info *info, va_list ap)
 	return (count);
 }
 
-int				print_upx(t_info *info, va_list ap)
+int		print_upx(t_info *info, va_list ap)
 {
-
 	size_t	tmp;
 	int		count;
 	char	*tmp2;
 	int		len;
 
-	count = 0;	
+	count = 0;
 	tmp = (size_t)(va_arg(ap, unsigned int));
 	tmp2 = ft_utoa(tmp, "0123456789ABCDEF");
 	len = ft_strlen(tmp2);
@@ -99,7 +98,7 @@ int				print_upx(t_info *info, va_list ap)
 	else
 	{
 		count = neg_int(tmp, &tmp2, &len, info);
-		if(info->minus == 0)
+		if (info->minus == 0)
 		{
 			num_nominus(info, &count, len, &tmp2);
 			putstr(tmp2, &count);
