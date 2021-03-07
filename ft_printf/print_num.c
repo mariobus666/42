@@ -6,7 +6,7 @@
 /*   By: flwang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 16:25:18 by flwang            #+#    #+#             */
-/*   Updated: 2021/03/06 19:21:03 by flwang           ###   ########.fr       */
+/*   Updated: 2021/03/07 16:14:25 by flwang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	num_nominus(t_info *info, int *count, int len, char **tmp2)
 			write(1, &w, 1);
 			(*count)++;
 		}
+	putstr(*tmp2, count);
 }
 
 void	num_minus(t_info *info, int *count, int len, char *tmp2)

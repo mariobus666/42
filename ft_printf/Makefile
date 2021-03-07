@@ -23,7 +23,7 @@ clean:
 	${RM} ${OBJS}
 	cd libft && make clean
 
-fclean: clean
+fclean:
 	${RM} ${NAME}
 	cd libft && make fclean
 

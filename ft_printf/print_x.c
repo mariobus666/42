@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_x.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbus <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: flwang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/27 12:20:51 by mbus              #+#    #+#             */
-/*   Updated: 2021/03/06 18:48:38 by flwang           ###   ########.fr       */
+/*   Created: 2021/03/07 16:47:14 by flwang            #+#    #+#             */
+/*   Updated: 2021/03/07 16:47:16 by flwang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,11 @@ int		print_x(t_info *info, va_list ap)
 	else
 	{
 		if (info->minus == 0)
-		{
 			num_nominus(info, &count, len, &tmp2);
-			putstr(tmp2, &count);
-		}
 		else
 			num_minus(info, &count, len, tmp2);
 	}
+	free(tmp2);
 	return (count);
 }
 
@@ -97,12 +95,10 @@ int		print_upx(t_info *info, va_list ap)
 	else
 	{
 		if (info->minus == 0)
-		{
 			num_nominus(info, &count, len, &tmp2);
-			putstr(tmp2, &count);
-		}
 		else
 			num_minus(info, &count, len, tmp2);
 	}
+	free(tmp2);
 	return (count);
 }

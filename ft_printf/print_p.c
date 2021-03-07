@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_p.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbus <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: flwang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/26 12:16:34 by mbus              #+#    #+#             */
-/*   Updated: 2021/03/06 20:05:28 by flwang           ###   ########.fr       */
+/*   Created: 2021/03/07 16:47:29 by flwang            #+#    #+#             */
+/*   Updated: 2021/03/07 16:47:34 by flwang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*size_to_hex(size_t to_conv, char *base)
 	return (tmp);
 }
 
-static int null_p_nominus(t_info *info)
+static int	null_p_nominus(t_info *info)
 {
 	int	count;
 
@@ -39,7 +39,6 @@ static int null_p_nominus(t_info *info)
 		write(1, "0x", 2);
 		while (info->width > count++)
 			write(1, " ", 1);
-
 	}
 	else
 	{
@@ -75,7 +74,7 @@ static int	null_p(t_info *info)
 		count--;
 	}
 	else
-		count = null_p_nominus(info);	
+		count = null_p_nominus(info);
 	return (count);
 }
 
@@ -118,6 +117,7 @@ int			print_p(t_info *info, va_list ap)
 		write(1, "0x", 2);
 		index = ft_strlen(tmp) - 1;
 		print_p2(index, tmp, &count, info);
+		free(tmp);
 	}
 	return (count);
 }

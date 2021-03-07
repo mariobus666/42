@@ -6,12 +6,11 @@
 /*   By: flwang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 16:05:32 by flwang            #+#    #+#             */
-/*   Updated: 2021/03/06 20:19:35 by flwang           ###   ########.fr       */
+/*   Updated: 2021/03/07 16:30:24 by flwang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
 int		read_width(const char **s, va_list ap, t_info *info)
 {
@@ -92,7 +91,8 @@ void	read_str(const char **s, va_list ap, int *res)
 		{
 			(*s)++;
 			init_info(info);
-			while (read_flags(s, info) || read_width(s, ap, info) || read_prec(s, ap, info))
+			while (read_flags(s, info) || read_width(s, ap, info) ||
+					read_prec(s, ap, info))
 				;
 			*res += read_type(**s, info, ap);
 			if (*res == -1)

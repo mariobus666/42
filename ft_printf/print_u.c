@@ -6,7 +6,7 @@
 /*   By: flwang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 16:29:05 by flwang            #+#    #+#             */
-/*   Updated: 2021/03/06 16:29:07 by flwang           ###   ########.fr       */
+/*   Updated: 2021/03/07 16:23:37 by flwang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ int		print_u(t_info *info, va_list ap)
 		else
 			u_num_minus(info, &count, len, tmp2);
 	}
+	free(tmp2);
 	return (count);
 }
